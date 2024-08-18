@@ -4,8 +4,10 @@ import { useEffect } from 'react'
 import { useColorScheme } from 'react-native'
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
-import { SplashScreen, Stack } from 'expo-router'
+import { Link, SplashScreen, Stack } from 'expo-router'
 import { Provider } from './Provider'
+import { Atom } from '@tamagui/lucide-icons'
+import { Button } from 'tamagui'
 
 export {
   // Catch any errors thrown by the Layout component.
