@@ -14,3 +14,10 @@ export const send = mutation({
     await ctx.db.insert('tasks', { isCompleted, text });
   },
 });
+
+export const like = mutation({
+  args: { liker: v.string(), messageId: v.id('tasks') },
+  handler: async (ctx, { liker, messageId }) => {
+    await ctx.db.insert('likes', { liker, messageId });
+  },
+});

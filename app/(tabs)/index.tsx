@@ -1,7 +1,8 @@
-import { ExternalLink } from '@tamagui/lucide-icons';
+import { Check, ExternalLink, Trash } from '@tamagui/lucide-icons';
 import {
   Anchor,
   Button,
+  Checkbox,
   Form,
   H2,
   H4,
@@ -20,8 +21,10 @@ import { useEffect, useState } from 'react';
 export default function TabOneScreen() {
   const tasks = useQuery(api.tasks.get);
   const sendTask = useMutation(api.tasks.send);
+  const likeTask = useMutation(api.tasks.like);
 
   const [status, setStatus] = useState<'off' | 'submitting' | 'submitted'>('off');
+  const [input, setInput] = useState<string>('');
 
   useEffect(() => {
     if (status === 'submitting') {
@@ -33,13 +36,20 @@ export default function TabOneScreen() {
   }, [status]);
 
   const addTask = async () => {
-    await sendTask({ text: 'Hello, Tamagui!', isCompleted: false });
+    console.log('Adding task');
+
+    await sendTask({ text: input, isCompleted: false });
+  };
+
+  const sendLike = async ({ liker, messageId }) => {
+    console.log('Liking task');
+
+    await likeTask({ liker, messageId });
   };
 
   return (
     <YStack f={1} ai="center" gap="$8" px="$10" pt="$5">
       <XStack gap="$4">
-        <H2>Tamagui + Expo22</H2>
         <ToastControl />
       </XStack>
 
@@ -55,9 +65,8 @@ export default function TabOneScreen() {
           borderColor="$borderColor"
           padding="$8"
         >
-          <H4>{status[0].toUpperCase() + status.slice(1)}</H4>
           <XStack gap="$4">
-            <Input placeholder="Add a task" />
+            <Input value={input} onChangeText={setInput} placeholder="Add a task" />
             <Button onPress={addTask}>Add</Button>
           </XStack>
 
@@ -67,11 +76,33 @@ export default function TabOneScreen() {
         </Form>
 
         <YStack gap="$2">
-          {tasks?.map(({ _id, text, author, body }) => (
-            <Text key={_id}>
-              {text}
-              {body}
-            </Text>
+          {tasks?.map(({ _id, text }) => (
+            <XStack
+              key={_id}
+              alignItems="center"
+              gap="$2"
+              borderWidth={1}
+              borderRadius="$4"
+              borderColor="$borderColor"
+              padding="$2"
+            >
+              <Checkbox
+                id={_id}
+                size="$3"
+                defaultChecked={true}
+                onCheckedChange={() => sendLike({ liker: text, messageId: _id })}
+              >
+                <Checkbox.Indicator>
+                  <Check />
+                </Checkbox.Indicator>
+              </Checkbox>
+
+              <Text key={_id}>{text}</Text>
+
+              <Button padding="$1" height="$1" icon={<Trash />}>
+                Delete
+              </Button>
+            </XStack>
           ))}
         </YStack>
       </XStack>
