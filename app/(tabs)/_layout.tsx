@@ -1,39 +1,30 @@
-import { Link, Stack } from 'expo-router';
-import { Button, useTheme } from 'tamagui';
+import React from 'react';
+import { Stack } from 'expo-router';
+import { AnimatedHeader } from '../components/AnimatedHeader';
+import { ScrollProvider } from '../context/ScrollContext';
 
 export default function TabLayout() {
-  const theme = useTheme();
-
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
-        options={{
-          title: 'Stack One',
-          headerShown: true,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Button mr="$4" bg="$purple8" color="$purple12">
-                Hello GG!
-              </Button>
-            </Link>
-          ),
+    <ScrollProvider>
+      <AnimatedHeader />
+      <Stack
+        screenOptions={{
+          header: () => null, // Hide the default header
         }}
-      />
-      <Stack.Screen
-        name="two"
-        options={{
-          title: 'Stack Two',
-          headerShown: false,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Button mr="$4" bg="$purple8" color="$purple12">
-                Hello 123!
-              </Button>
-            </Link>
-          ),
-        }}
-      />
-    </Stack>
+      >
+        <Stack.Screen
+          name="index"
+          options={{
+            title: 'Stack One',
+          }}
+        />
+        <Stack.Screen
+          name="two"
+          options={{
+            title: 'Stack Two',
+          }}
+        />
+      </Stack>
+    </ScrollProvider>
   );
 }

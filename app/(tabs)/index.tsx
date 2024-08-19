@@ -1,9 +1,11 @@
 import { H2, ScrollView, XStack, YStack } from 'tamagui';
 import { useMutation, useQuery } from 'convex/react';
 import { api } from 'convex/_generated/api';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { Animated } from 'react-native';
 import SubmitForm from './components/SubmitForm';
 import TaskList from './components/TaskList';
+import { useScroll } from '../context/ScrollContext';
 
 export default function TabOneScreen() {
   const tasks = useQuery(api.tasks.get);
@@ -38,10 +40,18 @@ export default function TabOneScreen() {
     await deleteTask({ id });
   };
 
+  const scrollY = useScroll();
+
   return (
     <YStack f={1} ai="center" backgroundColor="$blue1">
-      <ScrollView showsHorizontalScrollIndicator={false} p="$4" br="$4">
-        <YStack ai="center" gap="$8" width="100%">
+      <Animated.ScrollView
+        showsVerticalScrollIndicator={false}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
+          useNativeDriver: false,
+        })}
+        scrollEventThrottle={16}
+      >
+        <YStack ai="center" gap="$8" width="100%" pt={120} px="$4">
           <H2 color="$blue10">Task Manager</H2>
 
           <XStack gap="$4" width="100%">
@@ -55,7 +65,7 @@ export default function TabOneScreen() {
             <TaskList tasks={tasks} sendLike={sendLike} deleteTask={handleDeleteTask} />
           </XStack>
         </YStack>
-      </ScrollView>
+      </Animated.ScrollView>
     </YStack>
   );
 }
