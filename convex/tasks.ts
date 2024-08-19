@@ -21,3 +21,10 @@ export const like = mutation({
     await ctx.db.insert('likes', { liker, messageId });
   },
 });
+
+export const deleteTask = mutation({
+  args: { id: v.id('tasks') },
+  handler: async (ctx, { id }) => {
+    await ctx.db.delete(id);
+  },
+});
