@@ -21,6 +21,7 @@
   "dependencies": {
     "@react-navigation/native": "^6.1.17",
     "@tamagui/config": "^1.108.4",
+    "@tamagui/linear-gradient": "^1.108.4",
     "@tamagui/lucide-icons": "^1.108.4",
     "@tamagui/toast": "^1.108.4",
     "babel-preset-expo": "^11.0.6",
