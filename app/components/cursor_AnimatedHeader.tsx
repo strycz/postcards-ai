@@ -82,13 +82,13 @@ export const AnimatedHeader = () => {
           </Text>
         </XStack>
         <XStack gap="$2">
-          <Button size="$4" chromeless>
+          <Button size="$2" theme="gray">
             Pricing
           </Button>
-          <Button size="$4" chromeless>
+          <Button size="$2" theme="gray">
             Generate
           </Button>
-          <Button size="$4" variant="outlined">
+          <Button size="$2" theme="gray">
             Sign In
           </Button>
         </XStack>

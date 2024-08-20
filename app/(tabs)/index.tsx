@@ -1,11 +1,9 @@
 import { H2, ScrollView, XStack, YStack } from 'tamagui';
 import { useMutation, useQuery } from 'convex/react';
 import { api } from 'convex/_generated/api';
-import { useEffect, useState, useRef } from 'react';
-import { Animated } from 'react-native';
+import { useEffect, useState } from 'react';
 import SubmitForm from './components/SubmitForm';
 import TaskList from './components/TaskList';
-import { useScroll } from '../context/ScrollContext';
 
 export default function TabOneScreen() {
   const tasks = useQuery(api.tasks.get);
@@ -40,32 +38,26 @@ export default function TabOneScreen() {
     await deleteTask({ id });
   };
 
-  const scrollY = useScroll();
-
   return (
     <YStack f={1} ai="center" backgroundColor="$blue1">
-      <Animated.ScrollView
-        showsVerticalScrollIndicator={false}
-        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
-          useNativeDriver: false,
-        })}
-        scrollEventThrottle={16}
-      >
+      <ScrollView width="100%" padding="$4">
         <YStack ai="center" gap="$8" width="100%" pt={120} px="$4">
           <H2 color="$blue10">Task Manager</H2>
 
-          <XStack gap="$4" width="100%">
-            <SubmitForm
-              input={input}
-              setInput={setInput}
-              addTask={addTask}
-              status={status}
-              setStatus={setStatus}
-            />
-            <TaskList tasks={tasks} sendLike={sendLike} deleteTask={handleDeleteTask} />
+          <XStack gap="$4" width="100%" jc="center">
+            <XStack width="50%" gap="$4">
+              <SubmitForm
+                input={input}
+                setInput={setInput}
+                addTask={addTask}
+                status={status}
+                setStatus={setStatus}
+              />
+              <TaskList tasks={tasks} sendLike={sendLike} deleteTask={handleDeleteTask} />
+            </XStack>
           </XStack>
         </YStack>
-      </Animated.ScrollView>
+      </ScrollView>
     </YStack>
   );
 }
