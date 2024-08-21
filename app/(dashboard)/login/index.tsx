@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { YStack, XStack, Input, Button, Text, H1 } from 'tamagui';
 import { router } from 'expo-router';
 
 export default function LoginScreen() {
@@ -20,93 +20,40 @@ export default function LoginScreen() {
 
   const handleSignUp = () => {
     // Navigate to sign up page
-    router.push('/signup');
+    router.push('/(dashboard)/signup' as any);
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-      />
-      <TextInput
-        style={styles.input}
+    <YStack f={1} ai="center" jc="center" space="$4" p="$4">
+      <H1>Login</H1>
+      <Input placeholder="Username" value={username} onChangeText={setUsername} width="100%" />
+      <Input
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
+        width="100%"
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleForgotPassword}>
-        <Text style={styles.linkText}>Forgot Password?</Text>
-      </TouchableOpacity>
-      <View style={styles.socialContainer}>
-        <TouchableOpacity style={styles.socialButton} onPress={() => handleSocialLogin('apple')}>
-          <Text style={styles.socialButtonText}>Apple</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.socialButton} onPress={() => handleSocialLogin('google')}>
-          <Text style={styles.socialButtonText}>Google</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.socialButton} onPress={() => handleSocialLogin('facebook')}>
-          <Text style={styles.socialButtonText}>Facebook</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity onPress={handleSignUp}>
-        <Text style={styles.linkText}>Don't have an account? Sign Up</Text>
-      </TouchableOpacity>
-    </View>
+      <Button onPress={handleLogin} theme="active" width="100%">
+        Login
+      </Button>
+      <Text onPress={handleForgotPassword} color="$blue10">
+        Forgot Password?
+      </Text>
+      <XStack space="$2" mt="$4">
+        <Button onPress={() => handleSocialLogin('apple')} theme="gray">
+          Apple
+        </Button>
+        <Button onPress={() => handleSocialLogin('google')} theme="gray">
+          Google
+        </Button>
+        <Button onPress={() => handleSocialLogin('facebook')} theme="gray">
+          Facebook
+        </Button>
+      </XStack>
+      <Text onPress={handleSignUp} color="$blue10" mt="$4">
+        Don't have an account? Sign Up
+      </Text>
+    </YStack>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-  input: {
-    height: 40,
-    borderWidth: 1,
-    borderColor: 'gray',
-    marginBottom: 10,
-    paddingHorizontal: 10,
-  },
-  button: {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-  linkText: {
-    marginBottom: 10,
-  },
-  socialContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-  socialButton: {
-    backgroundColor: 'gray',
-    padding: 10,
-    borderRadius: 5,
-    marginRight: 10,
-  },
-  socialButtonText: {
-    color: 'white',
-    fontSize: 16,
-  },
-});

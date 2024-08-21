@@ -31,6 +31,12 @@ export default function TabLayout() {
           }}
         />
         <Stack.Screen
+          name="signup"
+          options={{
+            title: 'Sign Up',
+          }}
+        />
+        <Stack.Screen
           name="pricing"
           options={{
             title: 'Pricing',

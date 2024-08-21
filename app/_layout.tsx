@@ -5,10 +5,8 @@ import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Link, SplashScreen, Stack } from 'expo-router';
-import { Provider } from './Provider';
-import { Atom } from '@tamagui/lucide-icons';
-import { Button } from 'tamagui';
+import { SplashScreen, Stack } from 'expo-router';
+import { Provider } from './providers/Provider';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -21,7 +19,7 @@ const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: '(dashboard)',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
