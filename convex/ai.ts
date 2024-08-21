@@ -1,5 +1,6 @@
 import { v } from 'convex/values';
 import { action } from './_generated/server';
+import { api } from './_generated/api';
 import OpenAI from 'openai';
 
 const openai = new OpenAI();
@@ -21,5 +22,11 @@ export const chat = action({
     });
 
     const messageContent = completion.choices[0].message;
+    console.log(messageContent);
+
+    await ctx.runMutation(api.tasks.send, {
+      isCompleted: true,
+      text: messageContent?.content || "Sorry, I don't have an answer for that.",
+    });
   },
 });

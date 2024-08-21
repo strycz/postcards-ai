@@ -24,6 +24,18 @@ export default function TabLayout() {
             title: 'Stack Two',
           }}
         />
+        <Stack.Screen
+          name="login"
+          options={{
+            title: 'Login',
+          }}
+        />
+        <Stack.Screen
+          name="pricing"
+          options={{
+            title: 'Pricing',
+          }}
+        />
       </Stack>
     </ScrollProvider>
   );

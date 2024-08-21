@@ -3,8 +3,7 @@ import TaskCheckbox from './TaskCheckbox';
 import { Trash } from '@tamagui/lucide-icons';
 
 const TaskList = ({ tasks, sendLike, deleteTask }) => (
-  <YStack gap="$4" width="50%">
-    <H4 color="$blue10">Your Tasks</H4>
+  <YStack gap="$4" minWidth={30}>
     {tasks?.map(({ _id, text }) => (
       <XStack
         key={_id}
@@ -15,19 +14,14 @@ const TaskList = ({ tasks, sendLike, deleteTask }) => (
         borderRadius="$4"
         borderColor="$blue5"
         backgroundColor="$blue2"
-        padding="$4"
+        paddingVertical="$4"
+        paddingHorizontal="$4"
       >
-        <XStack alignItems="center" gap="$2" flex={1}>
-          <TaskCheckbox
-            id={_id}
-            text={text}
-            onCheckedChange={() => sendLike({ liker: text, messageId: _id })}
-          />
-
-          <Text color="$gray11" flex={1}>
-            {text}
-          </Text>
-        </XStack>
+        <TaskCheckbox
+          id={_id}
+          text={text}
+          onCheckedChange={() => sendLike({ liker: text, messageId: _id })}
+        />
 
         <Button
           padding="$2"

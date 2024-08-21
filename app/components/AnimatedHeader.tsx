@@ -4,6 +4,7 @@ import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { XStack, Text, Button, Image } from 'tamagui';
 import { useScroll } from '../context/ScrollContext';
+import { router } from 'expo-router';
 
 const HEADER_HEIGHT = 60;
 
@@ -75,20 +76,22 @@ export const AnimatedHeader = () => {
         )}
       </Animated.View>
       <XStack ai="center" jc="space-between" px="$4" f={1}>
-        <XStack ai="center" gap="$2">
-          <Image source={require('../../assets/logo.png')} width={30} height={30} />
-          <Text fontSize={18} fontWeight="bold" color="$gray12">
-            Postcards AI
-          </Text>
-        </XStack>
+        <Button chromeless onPress={() => router.push('/(dashboard)')}>
+          <XStack ai="center" gap="$2">
+            <Image source={require('../../assets/logo.png')} width={30} height={30} />
+            <Text fontSize={18} fontWeight="bold" color="$gray12">
+              Postcards AI
+            </Text>
+          </XStack>
+        </Button>
         <XStack gap="$2">
-          <Button size="$4" chromeless>
+          <Button size="$4" chromeless onPress={() => router.push('/pricing')}>
             Pricing
           </Button>
-          <Button size="$4" chromeless>
+          <Button size="$4" chromeless onPress={() => router.push('/(dashboard)')}>
             Generate
           </Button>
-          <Button size="$4" variant="outlined">
+          <Button size="$4" variant="outlined" onPress={() => router.push('/login')}>
             Sign In
           </Button>
         </XStack>

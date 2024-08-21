@@ -56,7 +56,7 @@ function RootLayoutNav() {
         <ConvexProvider client={convex}>
           <Stack>
             <Stack.Screen
-              name="(tabs)"
+              name="(dashboard)"
               options={{
                 headerShown: false,
               }}
