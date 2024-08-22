@@ -21,6 +21,8 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@auth/core": "^0.34.2",
+    "@convex-dev/auth": "^0.0.61",
     "@react-navigation/native": "^6.1.17",
     "@tamagui/config": "^1.108.4",
     "@tamagui/linear-gradient": "^1.108.4",
