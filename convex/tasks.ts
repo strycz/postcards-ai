@@ -12,7 +12,21 @@ export const get = query({
 export const send = mutation({
   args: { isCompleted: v.boolean(), text: v.string() },
   handler: async (ctx, { isCompleted, text }) => {
-    await ctx.db.insert('tasks', { isCompleted, text });
+    await ctx.db.insert('tasks', { isCompleted, text, author: 'stryczniewicz@gmail.com' });
+  },
+});
+
+export const getForCurrentUser = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (identity === null) {
+      throw new Error('Not authenticated');
+    }
+    return await ctx.db
+      .query('tasks')
+      .filter((q) => q.eq(q.field('author'), identity.email))
+      .collect();
   },
 });
 

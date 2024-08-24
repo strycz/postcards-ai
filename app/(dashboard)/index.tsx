@@ -1,12 +1,16 @@
-import { H2, ScrollView, XStack, YStack } from 'tamagui';
-import { useMutation, useQuery } from 'convex/react';
+import { H2, H4, ScrollView, Text, XStack, YStack } from 'tamagui';
+import { Authenticated, Unauthenticated, useMutation, useQuery } from 'convex/react';
 import { api } from 'convex/_generated/api';
 import { useEffect, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import SubmitForm from './components/SubmitForm';
 import TaskList from './components/TaskList';
+import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
+import { Link } from 'expo-router';
+import Page from 'app/(auth)/sign-in';
 
 export default function Dashboard() {
+  const { user } = useUser();
   const tasks = useQuery(api.tasks.get);
   const sendTask = useMutation(api.tasks.send);
   const deleteTask = useMutation(api.tasks.deleteTask);
@@ -41,12 +45,24 @@ export default function Dashboard() {
     await deleteTask({ id });
   };
 
+  function Content() {
+    const messages = useQuery(api.tasks.getForCurrentUser);
+    return <div>Authenticated content: {JSON.stringify(messages)}</div>;
+  }
+
   return (
     <YStack f={1} ai="center" backgroundColor="$blue1">
       <ScrollView width="100%" padding="$4">
         <YStack ai="center" gap="$8" width="100%" pt={120} px="$4">
           <H2 color="$blue10">Task Manager</H2>
 
+          <Unauthenticated>
+            <Page />
+          </Unauthenticated>
+          <Authenticated>
+            <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
+            <Content />
+          </Authenticated>
           <XStack
             flexDirection={isSmallScreen ? 'column' : 'row'}
             gap="$4"

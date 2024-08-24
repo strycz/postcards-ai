@@ -13,15 +13,16 @@
     "web": "npx expo start --web",
     "test": "jest --watchAll",
     "generate-themes": "tamagui generate-themes ./themes/theme-builder.ts ./themes/themes.ts",
-    "clean": "rm -rf android ios node_modules bun.lockb yarn.lock package-lock.json",
-    "clear": "rm -rf android ios node_modules bun.lockb yarn.lock package-lock.json && yarn install",
-    "rerun": "rm -rf android ios node_modules bun.lockb yarn.lock package-lock.json && yarn install && yarn android"
+    "clean": "rm -rf android ios node_modules bun.lockb bun.lock package-lock.json",
+    "clear": "rm -rf android ios node_modules bun.lockb bun.lock package-lock.json && bun install",
+    "rerun": "rm -rf android ios node_modules bun.lockb bun.lock package-lock.json && bun install && bun android"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
     "@auth/core": "^0.34.2",
+    "@clerk/clerk-expo": "^2.2.1",
     "@convex-dev/auth": "^0.0.61",
     "@react-navigation/native": "^6.1.17",
     "@tamagui/config": "^1.108.4",
@@ -36,6 +37,7 @@
     "expo-font": "~12.0.6",
     "expo-linking": "~6.3.1",
     "expo-router": "~3.5.15",
+    "expo-secure-store": "~13.0.2",
     "expo-splash-screen": "~0.27.4",
     "expo-status-bar": "^1.12.1",
     "expo-system-ui": "~3.0.4",
@@ -62,5 +64,5 @@
     "typescript": "~5.3.3"
   },
   "private": true,
-  "packageManager": "yarn@4.0.2"
+  "packageManager": "bun@4.0.2"
 }

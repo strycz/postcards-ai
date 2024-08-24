@@ -4,6 +4,7 @@ import { v } from 'convex/values';
 export default defineSchema({
   tasks: defineTable({
     isCompleted: v.boolean(),
+    author: v.optional(v.string()),
     text: v.string(),
   }),
   likes: defineTable({
