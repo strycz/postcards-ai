@@ -5,11 +5,16 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { XStack, Text, Button, Image } from 'tamagui';
 import { useScroll } from '../context/ScrollContext';
 import { router } from 'expo-router';
+import { useAuth } from '@clerk/clerk-expo';
+import { useConvexAuth } from 'convex/react';
 
 const HEADER_HEIGHT = 60;
 
 export const AnimatedHeader = () => {
   const scrollY = useScroll();
+  const { isAuthenticated } = useConvexAuth();
+  const { signOut } = useAuth();
+
   const insets = useSafeAreaInsets();
   const [animatedValue] = useState(new Animated.Value(0));
 
@@ -45,6 +50,14 @@ export const AnimatedHeader = () => {
     outputRange: [0, 20],
     extrapolate: 'clamp',
   });
+
+  const signInPressed = () => {
+    if (isAuthenticated) {
+      signOut();
+    } else {
+      router.push('/(auth)/sign-in');
+    }
+  };
 
   return (
     <Animated.View
@@ -91,7 +104,7 @@ export const AnimatedHeader = () => {
           <Button size="$4" chromeless onPress={() => router.push('/(dashboard)')}>
             Generate
           </Button>
-          <Button size="$4" variant="outlined" onPress={() => router.push('/login')}>
+          <Button size="$4" variant="outlined" onPress={signInPressed}>
             Sign In
           </Button>
         </XStack>

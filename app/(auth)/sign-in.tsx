@@ -1,12 +1,10 @@
-import { useAuth, useSignIn } from '@clerk/clerk-expo';
+import { useSignIn } from '@clerk/clerk-expo';
 import { Link, useRouter } from 'expo-router';
-import { Text, TextInput, Button, View } from 'react-native';
 import React from 'react';
-import { useConvexAuth } from 'convex/react';
+import { Button, Form, Input, Text, YStack, XStack } from 'tamagui';
 
 export default function Page() {
   const { signIn, setActive, isLoaded } = useSignIn();
-  const { signOut } = useAuth();
   const router = useRouter();
 
   const [emailAddress, setEmailAddress] = React.useState('');
@@ -37,26 +35,32 @@ export default function Page() {
   }, [isLoaded, emailAddress, password]);
 
   return (
-    <View>
-      <TextInput
-        autoCapitalize="none"
-        value={emailAddress}
-        placeholder="Email..."
-        onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
-      />
-      <TextInput
-        value={password}
-        placeholder="Password..."
-        secureTextEntry={true}
-        onChangeText={(password) => setPassword(password)}
-      />
-      <Button title="Sign In" onPress={onSignInPress} />
-      <View>
+    <YStack gap="$4" padding="$4" minWidth="25%" alignSelf="center">
+      <Form onSubmit={onSignInPress}>
+        <YStack gap="$4">
+          <Input
+            autoCapitalize="none"
+            value={emailAddress}
+            placeholder="Email..."
+            onChangeText={setEmailAddress}
+          />
+          <Input
+            value={password}
+            placeholder="Password..."
+            secureTextEntry={true}
+            onChangeText={setPassword}
+          />
+          <Form.Trigger asChild>
+            <Button>Sign In CLERK</Button>
+          </Form.Trigger>
+        </YStack>
+      </Form>
+      <XStack gap="$2" justifyContent="center">
         <Text>Don't have an account?</Text>
-        <Link href="/sign-up">
-          <Text>Sign up</Text>
+        <Link href="/sign-up" asChild>
+          <Text color="$blue10">Sign up</Text>
         </Link>
-      </View>
-    </View>
+      </XStack>
+    </YStack>
   );
 }

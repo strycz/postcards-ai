@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { TextInput, Button, View } from 'react-native';
 import { useSignUp } from '@clerk/clerk-expo';
 import { useRouter } from 'expo-router';
+import { Button, Form, Input, Text, YStack, XStack } from 'tamagui';
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -27,8 +27,6 @@ export default function SignUpScreen() {
 
       setPendingVerification(true);
     } catch (err: any) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
       console.error(JSON.stringify(err, null, 2));
     }
   };
@@ -50,37 +48,42 @@ export default function SignUpScreen() {
         console.error(JSON.stringify(completeSignUp, null, 2));
       }
     } catch (err: any) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
       console.error(JSON.stringify(err, null, 2));
     }
   };
 
   return (
-    <View>
-      {!pendingVerification && (
-        <>
-          <TextInput
-            autoCapitalize="none"
-            value={emailAddress}
-            placeholder="Email..."
-            onChangeText={(email) => setEmailAddress(email)}
-          />
-          <TextInput
-            value={password}
-            placeholder="Password..."
-            secureTextEntry={true}
-            onChangeText={(password) => setPassword(password)}
-          />
-          <Button title="Sign Up" onPress={onSignUpPress} />
-        </>
+    <YStack gap="$4" padding="$4" minWidth="25%" alignSelf="center">
+      {!pendingVerification ? (
+        <Form onSubmit={onSignUpPress}>
+          <YStack gap="$4">
+            <Input
+              autoCapitalize="none"
+              value={emailAddress}
+              placeholder="Email..."
+              onChangeText={setEmailAddress}
+            />
+            <Input
+              value={password}
+              placeholder="Password..."
+              secureTextEntry={true}
+              onChangeText={setPassword}
+            />
+            <Form.Trigger asChild>
+              <Button>Sign Up</Button>
+            </Form.Trigger>
+          </YStack>
+        </Form>
+      ) : (
+        <Form onSubmit={onPressVerify}>
+          <YStack gap="$4">
+            <Input value={code} placeholder="Verification Code..." onChangeText={setCode} />
+            <Form.Trigger asChild>
+              <Button>Verify Email</Button>
+            </Form.Trigger>
+          </YStack>
+        </Form>
       )}
-      {pendingVerification && (
-        <>
-          <TextInput value={code} placeholder="Code..." onChangeText={(code) => setCode(code)} />
-          <Button title="Verify Email" onPress={onPressVerify} />
-        </>
-      )}
-    </View>
+    </YStack>
   );
 }
