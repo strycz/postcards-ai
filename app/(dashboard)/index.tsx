@@ -1,13 +1,15 @@
-import { H2, H4, ScrollView, Text, XStack, YStack } from 'tamagui';
+import { H2, ScrollView, Text, XStack, YStack } from 'tamagui';
 import { Authenticated, Unauthenticated, useMutation, useQuery } from 'convex/react';
 import { api } from 'convex/_generated/api';
 import { useEffect, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import SubmitForm from './components/SubmitForm';
 import TaskList from './components/TaskList';
-import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo';
-import { Link } from 'expo-router';
-import Page from 'app/(auth)/sign-in';
+import { useUser } from '@clerk/clerk-expo';
+import SignInPanel from 'app/(auth)/sign-in';
+import SignInWithGoogle from 'app/(auth)/components/SignInWithGoogle';
+import SignInWithFacebook from 'app/(auth)/components/SignInWithFacebook';
+import SignInWithApple from 'app/(auth)/components/SignInWithApple';
 
 export default function Dashboard() {
   const { user } = useUser();
@@ -57,7 +59,7 @@ export default function Dashboard() {
           <H2 color="$blue10">Task Manager</H2>
 
           <Unauthenticated>
-            <Page />
+            <SignInPanel />
           </Unauthenticated>
           <Authenticated>
             <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>

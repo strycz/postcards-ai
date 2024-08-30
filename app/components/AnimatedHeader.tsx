@@ -52,6 +52,8 @@ export const AnimatedHeader = () => {
   });
 
   const signInPressed = () => {
+    // router.push('/login');
+    // return;
     if (isAuthenticated) {
       signOut();
     } else {

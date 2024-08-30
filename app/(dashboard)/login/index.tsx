@@ -40,7 +40,7 @@ export default function LoginScreen() {
       <Text onPress={handleForgotPassword} color="$blue10">
         Forgot Password?
       </Text>
-      <XStack space="$2" mt="$4">
+      <XStack gap="$2" mt="$4">
         <Button onPress={() => handleSocialLogin('apple')} theme="gray">
           Apple
         </Button>

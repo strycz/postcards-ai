@@ -1,9 +1,13 @@
 import { useSignIn } from '@clerk/clerk-expo';
+import { SignUp } from '@clerk/clerk-expo/web';
 import { Link, useRouter } from 'expo-router';
 import React from 'react';
-import { Button, Form, Input, Text, YStack, XStack } from 'tamagui';
+import { Button, Form, Input, Text, YStack, XStack, Separator } from 'tamagui';
+import SignInWithGoogle from './components/SignInWithGoogle';
+import SignInWithFacebook from './components/SignInWithFacebook';
+import SignInWithApple from './components/SignInWithApple';
 
-export default function Page() {
+export default function SignInPanel() {
   const { signIn, setActive, isLoaded } = useSignIn();
   const router = useRouter();
 
@@ -35,7 +39,19 @@ export default function Page() {
   }, [isLoaded, emailAddress, password]);
 
   return (
-    <YStack gap="$4" padding="$4" minWidth="25%" alignSelf="center">
+    <YStack gap="$4" padding="$4" ai="center" borderRadius="$4" width="50%">
+      <XStack gap="$2" mt="$4">
+        <SignInWithGoogle />
+        <SignInWithFacebook />
+        <SignInWithApple />
+      </XStack>
+      <XStack gap="$4" mt="$4" alignItems="center">
+        <Separator bc="$gray5" bw="$0.5" w="100px" />
+        <Text fontSize="12px" fontWeight="100">
+          or
+        </Text>
+        <Separator bc="$gray5" bw="$0.5" w="100px" />
+      </XStack>
       <Form onSubmit={onSignInPress}>
         <YStack gap="$4">
           <Input
