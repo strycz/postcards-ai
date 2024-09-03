@@ -2,14 +2,11 @@ import { H2, ScrollView, Text, XStack, YStack } from 'tamagui';
 import { Authenticated, Unauthenticated, useMutation, useQuery } from 'convex/react';
 import { api } from 'convex/_generated/api';
 import { useEffect, useState } from 'react';
-import { useWindowDimensions } from 'react-native';
+import { useWindowDimensions, Text as TextRN } from 'react-native';
 import SubmitForm from './components/SubmitForm';
 import TaskList from './components/TaskList';
 import { useUser } from '@clerk/clerk-expo';
 import SignInPanel from 'app/(auth)/sign-in';
-import SignInWithGoogle from 'app/(auth)/components/SignInWithGoogle';
-import SignInWithFacebook from 'app/(auth)/components/SignInWithFacebook';
-import SignInWithApple from 'app/(auth)/components/SignInWithApple';
 
 export default function Dashboard() {
   const { user } = useUser();
@@ -60,6 +57,7 @@ export default function Dashboard() {
 
           <Unauthenticated>
             <SignInPanel />
+            <TextRN style={{ backgroundColor: 'red' }}></TextRN>
           </Unauthenticated>
           <Authenticated>
             <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
