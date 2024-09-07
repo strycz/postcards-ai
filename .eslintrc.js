@@ -1,0 +1,61 @@
+module.exports = {
+  root: true,
+  parser: '@typescript-eslint/parser',
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: [
+    '@react-native-community',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
+    'prettier',
+  ],
+  overrides: [
+    {
+      env: {
+        node: true,
+      },
+      files: ['.eslintrc.{js,cjs}'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
+  ],
+  ignorePatterns: ['.eslintrc.js'],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: ['@typescript-eslint', 'prettier'],
+  globals: {
+    waitFor: 'readonly',
+    device: 'readonly',
+    expect: 'readonly',
+    element: 'readonly',
+    by: 'readonly',
+    waitFor: 'readonly',
+  },
+  rules: {
+    'no-use-before-define': 0,
+    'react/prop-types': 0,
+    'react/require-default-props': 0,
+    '@typescript-eslint/no-var-requires': 0,
+    'no-console': 0,
+    'no-alert': 0,
+    'no-plusplus': 0,
+    'react/jsx-props-no-spreading': 0,
+    'react/react-in-jsx-scope': 0,
+    'no-prototype-builtins': 0,
+    'no-param-reassign': 1,
+    'no-promise-executor-return': 1,
+    'react/function-component-definition': 0,
+    'default-param-last': 0,
+    'react/no-unescaped-entities': 0,
+    'react/jsx-filename-extension': 0,
+    'import/prefer-default-export': 0,
+    'import/no-extraneous-dependencies': 1,
+    'import/extensions': 0,
+    'import/no-unresolved': 0,
+  },
+};

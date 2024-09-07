@@ -1,10 +1,8 @@
 import { useSignIn } from '@clerk/clerk-expo';
-import { SignUp } from '@clerk/clerk-expo/web';
 import { Link, useRouter } from 'expo-router';
 import React from 'react';
 import { Button, Form, Input, Text, YStack, XStack, Separator } from 'tamagui';
 import SignInWithGoogle from './components/SignInWithGoogle';
-import SignInWithFacebook from './components/SignInWithFacebook';
 import SignInWithApple from './components/SignInWithApple';
 
 export default function SignInPanel() {
@@ -42,7 +40,6 @@ export default function SignInPanel() {
     <YStack gap="$4" padding="$4" ai="center" borderRadius="$4" width="50%">
       <XStack gap="$2" mt="$4">
         <SignInWithGoogle />
-        <SignInWithFacebook />
         <SignInWithApple />
       </XStack>
       <XStack gap="$4" mt="$4" alignItems="center">
