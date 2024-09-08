@@ -6,19 +6,15 @@ export default function TabLayout() {
   const theme = useTheme()
 
   return (
-    <Stack
-        screenOptions={{
-          header: () => null, // Hide the default header
-        }}
-      >
+    <Stack>
         <Stack.Screen
           name="index"
           options={{
-            title: 'Stack One',
+            title: 'Dashboard',
           }}
         />
         <Stack.Screen
-          name="pricing"
+          name="pricing/index"
           options={{
             title: 'Pricing',
           }}
