@@ -1,12 +1,13 @@
 import '../tamagui-web.css';
 
 import { useEffect } from 'react';
-import { useColorScheme } from 'react-native';
+import { Platform, useColorScheme } from 'react-native';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { Provider } from '../components/Provider';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SecureStore from 'expo-secure-store';
 
 import { ConvexAuthProvider } from '@convex-dev/auth/react';
@@ -27,9 +28,9 @@ const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
 });
 
 const secureStorage = {
-  getItem: SecureStore.getItemAsync,
-  setItem: SecureStore.setItemAsync,
-  removeItem: SecureStore.deleteItemAsync,
+  getItem: Platform.OS === 'web' ? AsyncStorage.getItem : SecureStore.getItemAsync,
+  setItem: Platform.OS === 'web' ? AsyncStorage.setItem : SecureStore.setItemAsync,
+  removeItem: Platform.OS === 'web' ? AsyncStorage.removeItem : SecureStore.deleteItemAsync,
 };
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
