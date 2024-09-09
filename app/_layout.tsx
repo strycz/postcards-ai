@@ -65,7 +65,7 @@ function RootLayoutNav() {
     <Provider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <ConvexAuthProvider client={convex} storage={secureStorage}>
-          <Stack>
+          <Stack initialRouteName="(dashboard)">
             <Stack.Screen
               name="(dashboard)"
               options={{
