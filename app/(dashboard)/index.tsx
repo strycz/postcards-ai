@@ -1,7 +1,8 @@
 import { ExternalLink } from '@tamagui/lucide-icons'
 import { Anchor, H2, Paragraph, XStack, YStack } from 'tamagui'
-import { ToastControl } from 'app/CurrentToast'
 import { Link } from 'expo-router'
+import { ToastControl } from 'components/CurrentToast'
+import TaskList from 'components/TaskList'
 
 export default function Dashboard() {
   return (
@@ -10,6 +11,8 @@ export default function Dashboard() {
       <Link href={'/(dashboard)/pricing'}>
       <H2>LETS GO TO PRICING</H2>
       </Link>
+
+      <ToastControl />
     </YStack>
   )
 }
