@@ -12,6 +12,7 @@ import * as SecureStore from 'expo-secure-store';
 
 import { ConvexAuthProvider } from '@convex-dev/auth/react';
 import { ConvexReactClient } from 'convex/react';
+import { Theme } from 'tamagui';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -76,11 +77,11 @@ function RootLayoutNav() {
             <Stack.Screen
               name="modal"
               options={{
-                title: 'Tamagui + Expo',
+                title: 'Login',
                 presentation: 'modal',
                 animation: 'slide_from_bottom',
                 gestureEnabled: true,
-                gestureDirection: 'horizontal',
+                gestureDirection: 'vertical',
               }}
             />
           </Stack>
