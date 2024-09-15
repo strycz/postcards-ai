@@ -48,7 +48,7 @@ export default function Dashboard() {
     <ScrollView w="100%" p="$4">
       <YStack f={1} ai="center" gap="$8" px="$10" pt="$5">
         <H2>ODSOKDSO</H2>
-        <Link href={'/(dashboard)/pricing'}>
+        <Link href={'/pricing'}>
           <H2>LETS GO TO PRICING</H2>
         </Link>
 

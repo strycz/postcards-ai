@@ -12,7 +12,7 @@ export default function TabLayout() {
         headerTitle: (props) => <HeaderLogo />,
         headerRight: () => (
           <XStack gap="$4" mr="$4">
-            <Button onPress={() => router.navigate('/modal')} color="#fff">
+            <Button onPress={() => router.navigate('/pricing')} color="#fff">
               Pricing
             </Button>
             <Button onPress={() => router.navigate('/modal')} color="#fff">
@@ -26,12 +26,6 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Dashboard',
-        }}
-      />
-      <Stack.Screen
-        name="pricing/index"
-        options={{
-          title: 'Pricing',
         }}
       />
     </Stack>

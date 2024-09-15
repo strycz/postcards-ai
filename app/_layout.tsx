@@ -73,6 +73,12 @@ function RootLayoutNav() {
                 headerShown: false,
               }}
             />
+            <Stack.Screen
+              name="pricing/index"
+              options={{
+                title: 'Pricing',
+              }}
+            />
 
             <Stack.Screen
               name="modal"
