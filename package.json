@@ -13,9 +13,9 @@
     "web": "npx expo start --web",
     "test": "jest --watchAll",
     "generate-themes": "tamagui generate-themes ./themes/theme-builder.ts ./themes/theme-output.ts",
-    "clean": "rm -rf android ios node_modules bun.lockb bun.lock package-lock.json",
-    "clear": "rm -rf android ios node_modules bun.lockb bun.lock package-lock.json && bun install",
-    "rerun": "rm -rf android ios node_modules bun.lockb bun.lock package-lock.json && bun install && bun android"
+    "clean": "rm -rf android ios node_modules bun.lockb yarn.lock package-lock.json",
+    "clear": "rm -rf android ios node_modules bun.lockb yarn.lock package-lock.json && bun install",
+    "rerun": "rm -rf android ios node_modules bun.lockb yarn.lock package-lock.json && bun install && bun android"
   },
   "jest": {
     "preset": "jest-expo"
