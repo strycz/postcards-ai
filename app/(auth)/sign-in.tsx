@@ -1,9 +1,9 @@
 import { useSignIn } from '@clerk/clerk-expo';
+import SignInWithApple from 'components/auth/SignInWithApple';
+import SignInWithGoogle from 'components/auth/SignInWithGoogle';
 import { Link, useRouter } from 'expo-router';
 import React from 'react';
 import { Button, Form, Input, Text, YStack, XStack, Separator } from 'tamagui';
-import SignInWithGoogle from './components/SignInWithGoogle';
-import SignInWithApple from './components/SignInWithApple';
 
 export default function SignInPanel() {
   const { signIn, setActive, isLoaded } = useSignIn();

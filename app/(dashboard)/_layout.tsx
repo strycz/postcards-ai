@@ -1,9 +1,16 @@
 import { router, Stack } from 'expo-router';
 import { Button, useTheme, XStack } from 'tamagui';
 import HeaderLogo from 'components/dashboard/HeaderLogo';
+import { useConvexAuth } from 'convex/react';
+import { useAuth } from '@clerk/clerk-expo';
 
 export default function TabLayout() {
-  const theme = useTheme();
+  const { isLoading, isAuthenticated } = useConvexAuth();
+  const { signOut } = useAuth();
+
+  const handleLoginPress = () => {
+    isAuthenticated ? signOut() : router.navigate('/(auth)/sign-in');
+  };
 
   return (
     <Stack
@@ -15,8 +22,8 @@ export default function TabLayout() {
             <Button onPress={() => router.navigate('/pricing')} color="#fff">
               Pricing
             </Button>
-            <Button onPress={() => router.navigate('/(auth)')} color="#fff">
-              Login
+            <Button onPress={handleLoginPress} color="#fff">
+              {isAuthenticated ? 'Logout' : 'Login'}
             </Button>
           </XStack>
         ),
