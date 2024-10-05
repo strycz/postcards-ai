@@ -15,7 +15,7 @@ export default function TabLayout() {
             <Button onPress={() => router.navigate('/pricing')} color="#fff">
               Pricing
             </Button>
-            <Button onPress={() => router.navigate('/(auth)/signIn')} color="#fff">
+            <Button onPress={() => router.navigate('/(auth)')} color="#fff">
               Login
             </Button>
           </XStack>

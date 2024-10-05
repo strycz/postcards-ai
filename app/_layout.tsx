@@ -81,7 +81,7 @@ function RootLayoutNav() {
               />
 
               <Stack.Screen
-                name="(auth)/signIn"
+                name="(auth)"
                 options={{
                   title: 'Login',
                   presentation: 'modal',
