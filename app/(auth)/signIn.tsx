@@ -1,13 +1,14 @@
 import { useSignIn } from '@clerk/clerk-expo';
 import { Airplay } from '@tamagui/lucide-icons';
 import { api } from 'convex/_generated/api';
-import { Authenticated, Unauthenticated, useQuery } from 'convex/react';
+import { Authenticated, Unauthenticated, useConvexAuth, useQuery } from 'convex/react';
 import { useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { Anchor, Button, Paragraph, Text, View, XStack, YStack } from 'tamagui';
 
-export default function ModalScreen() {
+export default function SignInModal() {
   const { signIn, setActive, isLoaded } = useSignIn();
+  const { isLoading, isAuthenticated } = useConvexAuth();
 
   const router = useRouter();
 
@@ -38,12 +39,14 @@ export default function ModalScreen() {
     }
   }, [isLoaded, emailAddress, password]);
 
+  const onSignOutPress = () => {};
+
   const messages = useQuery(api.tasks.getForCurrentUser);
 
   function Content() {
     const messages = useQuery(api.tasks.getForCurrentUser);
 
-    return <Text>Authenticated content: {JSON.stringify(messages)}</Text>;
+    return <Text>Authenticated content: {JSON.stringify(messages?.length)}</Text>;
   }
 
   return (
@@ -57,22 +60,11 @@ export default function ModalScreen() {
           </Unauthenticated>
           <Authenticated>
             <Content />
+            <Button alignSelf="center" icon={Airplay} size="$6" onPress={onSignOutPress}>
+              "Sign Out"
+            </Button>
           </Authenticated>
         </YStack>
-        <XStack gap="$2">
-          <Paragraph ta="center">Made by</Paragraph>
-          <Anchor col="$blue10" href="https://twitter.com/natebirdman" target="_blank">
-            @natebirdman,
-          </Anchor>
-          <Anchor
-            color="$purple10"
-            href="https://github.com/tamagui/tamagui"
-            target="_blank"
-            rel="noreferrer"
-          >
-            give it a ⭐️
-          </Anchor>
-        </XStack>
       </YStack>
     </View>
   );

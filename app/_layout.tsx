@@ -6,12 +6,11 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { Provider } from '../components/Provider';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as SecureStore from 'expo-secure-store';
-
-import { ConvexAuthProvider } from '@convex-dev/auth/react';
 import { ConvexReactClient } from 'convex/react';
+
+import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
+import { ConvexProviderWithClerk } from 'convex/react-clerk';
+
 import { Theme } from 'tamagui';
 
 export {
@@ -28,13 +27,13 @@ const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
   unsavedChangesWarning: false,
 });
 
-const secureStorage = {
-  getItem: Platform.OS === 'web' ? AsyncStorage.getItem : SecureStore.getItemAsync,
-  setItem: Platform.OS === 'web' ? AsyncStorage.setItem : SecureStore.setItemAsync,
-  removeItem: Platform.OS === 'web' ? AsyncStorage.removeItem : SecureStore.deleteItemAsync,
-};
-
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
+
+if (!publishableKey) {
+  throw new Error(
+    'Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env',
+  );
+}
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -65,33 +64,35 @@ function RootLayoutNav() {
   return (
     <Provider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <ConvexAuthProvider client={convex} storage={secureStorage}>
-          <Stack initialRouteName="(dashboard)">
-            <Stack.Screen
-              name="(dashboard)"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="pricing/index"
-              options={{
-                title: 'Pricing',
-              }}
-            />
+        <ClerkProvider publishableKey={publishableKey}>
+          <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
+            <Stack initialRouteName="(dashboard)">
+              <Stack.Screen
+                name="(dashboard)"
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="pricing/index"
+                options={{
+                  title: 'Pricing',
+                }}
+              />
 
-            <Stack.Screen
-              name="modal"
-              options={{
-                title: 'Login',
-                presentation: 'modal',
-                animation: 'slide_from_bottom',
-                gestureEnabled: true,
-                gestureDirection: 'vertical',
-              }}
-            />
-          </Stack>
-        </ConvexAuthProvider>
+              <Stack.Screen
+                name="(auth)/signIn"
+                options={{
+                  title: 'Login',
+                  presentation: 'modal',
+                  animation: 'slide_from_bottom',
+                  gestureEnabled: true,
+                  gestureDirection: 'vertical',
+                }}
+              />
+            </Stack>
+          </ConvexProviderWithClerk>
+        </ClerkProvider>
       </ThemeProvider>
     </Provider>
   );
