@@ -37,14 +37,14 @@ export default function SignInPanel() {
   }, [isLoaded, emailAddress, password]);
 
   return (
-    <YStack gap="$4" padding="$4" ai="center" borderRadius="$4" width="50%">
+    <YStack gap="$4" padding="$4" ai="center" borderRadius="$4" width="50%" alignSelf="center">
       <XStack gap="$2" mt="$4">
         <SignInWithGoogle />
         <SignInWithApple />
       </XStack>
       <XStack gap="$4" mt="$4" alignItems="center">
         <Separator bc="$gray5" bw="$0.5" w="100px" />
-        <Text fontSize="12px" fontWeight="100">
+        <Text fontSize={'$4'} fontWeight="100">
           or
         </Text>
         <Separator bc="$gray5" bw="$0.5" w="100px" />

@@ -34,11 +34,13 @@ const SignInWithGoogle = () => {
       <Button
         onPress={handleSocialLogin}
         variant="outlined"
-        icon={<GoogleLogo width="18" />}
+        // icon={<GoogleLogo width="18" />}
         size="$3"
         paddingVertical="$4"
         paddingHorizontal="$7"
-      />
+      >
+        Sign In With Google
+      </Button>
     </YStack>
   );
 };

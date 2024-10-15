@@ -34,7 +34,7 @@ const SignInWithApple = () => {
       <Button
         onPress={handleSocialLogin}
         variant="outlined"
-        icon={<AppleLogo width="18" />}
+        // icon={<AppleLogo width="18" />}
         size="$3"
         paddingVertical="$4"
         paddingHorizontal="$7"
